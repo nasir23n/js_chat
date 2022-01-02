@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chat</title>
+    <link rel="stylesheet" href="assets/css/master.css">
+    <script src="assets/js/jquery-3.4.1.min.js"></script>
+    <script>
+        let goTop = function () {
+            $("html, body").animate({
+                scrollTop: 0
+            }, 200);
+        }
+    </script>
+    <style id="thm">
+        :root {
+            --theme_bg: linear-gradient(to top, #1e5799 0%, #f9005a 50%, #ff0d9e 100%);
+        }
+    </style>
+</head>
+
+<body class="">
+    <div class="master">
+        <div class="left_aside">
+            <div class="left_had">
+                <div class="src_w">
+                    <i style="display: flex;">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                    </i>
+                    <input id="search_fld" type="search" class="src" placeholder="Search">
+                    <button class="c_src">Cancel</button>
+                    <button class="c_aside">&#9587;</button>
+                </div>
+            </div>
+            <div class="aside_box">
+                <div class="result_box">
+                    <div class="pic_a_date">
+                        <input type="datetime-local" width="100" id="p_a_d">
+                        <div class="date_p_and_go">Go &raquo;</div>
+                    </div>
+                    <ul class="result" id="result"></ul>
+                </div>
+                <ul class="chat_id_box" id="chat_list"></ul>
+            </div>
+        </div>
+
+        <!-- {{-- chat start --}} -->
+        <div class="chat_field">
+            <div class="chat_header">
+                <div class="had_over">
+                    <div class="go_so">
+                        <div class="s_match">
+                            <span class="match_stat">50</span>/<span class="current">29</span>
+                        </div>
+                        <button class="ud up">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none" opacity=".87"/><path d="M17.51 3.87L15.73 2.1 5.84 12l9.9 9.9 1.77-1.77L9.38 12l8.13-8.13z"/></svg>
+                        </button>
+                        <button class="ud down">
+                            <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><g><path d="M0,0h24v24H0V0z" fill="none"/></g><g><polygon points="6.23,20.23 8,22 18,12 8,2 6.23,3.77 14.46,12"/></g></svg>
+                        </button>
+                    </div>
+                    <button class="s_cancel">&#9587;</button>
+                </div>
+                <button class="lr_control search_oc">
+                    <span style="display: flex;">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                    </span>
+                </button>
+                <div class="ind">
+                    <button class="nl" id="prev" style="display: flex;">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none" opacity=".87"/><path d="M17.51 3.87L15.73 2.1 5.84 12l9.9 9.9 1.77-1.77L9.38 12l8.13-8.13z"/></svg>
+                    </button>
+                    <input type="number" class="nl" id="ind" min="1">
+                    <button class="nl" id="next" style="display: flex;">
+                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><g><path d="M0,0h24v24H0V0z" fill="none"/></g><g><polygon points="6.23,20.23 8,22 18,12 8,2 6.23,3.77 14.46,12"/></g></svg>
+                    </button>
+                </div>
+                <button class="lr_control setting_oc">
+                    <span class="opn" style="display: flex;">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19.43 12.98c.04-.32.07-.64.07-.98 0-.34-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.09-.16-.26-.25-.44-.25-.06 0-.12.01-.17.03l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.06-.02-.12-.03-.18-.03-.17 0-.34.09-.43.25l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98 0 .33.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.09.16.26.25.44.25.06 0 .12-.01.17-.03l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.06.02.12.03.18.03.17 0 .34-.09.43-.25l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zm-1.98-1.71c.04.31.05.52.05.73 0 .21-.02.43-.05.73l-.14 1.13.89.7 1.08.84-.7 1.21-1.27-.51-1.04-.42-.9.68c-.43.32-.84.56-1.25.73l-1.06.43-.16 1.13-.2 1.35h-1.4l-.19-1.35-.16-1.13-1.06-.43c-.43-.18-.83-.41-1.23-.71l-.91-.7-1.06.43-1.27.51-.7-1.21 1.08-.84.89-.7-.14-1.13c-.03-.31-.05-.54-.05-.74s.02-.43.05-.73l.14-1.13-.89-.7-1.08-.84.7-1.21 1.27.51 1.04.42.9-.68c.43-.32.84-.56 1.25-.73l1.06-.43.16-1.13.2-1.35h1.39l.19 1.35.16 1.13 1.06.43c.43.18.83.41 1.23.71l.91.7 1.06-.43 1.27-.51.7 1.21-1.07.85-.89.7.14 1.13zM12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+                    </span>
+                    <span class="close">&#9587;</span>
+                </button>
+            </div>
+            <div class="chat_box" id="msg"></div>
+        </div>
+        <!-- {{-- chat end --}} -->
+        <div class="right_aside">
+            <div class="m_profile flex_center" id="rb_profile">
+                <div class="img mb2">
+                    <img src="profile/user1.jpg" alt="">
+                    <img src="profile/user2.jpg" alt="">
+                </div>
+                <div class="name">
+                    <strong>User One</strong>
+                    <span>with</span>
+                    <strong>User Two</strong>
+                </div>
+                <div class="inf">
+                    <strong>Total message</strong>
+                    <span class="current_total">238923</span>
+                </div>
+                <div class="inf theme">
+                    <div class="thim_title">
+                        Color Theme
+                    </div>
+                    <ul class="theme_colors">
+                        <li>
+                            <div class="color" style="background: var(--pre_theme_1)" data-tm="var(--theme_1)"></div>
+                        </li>
+                        <li>
+                            <div class="color" style="background: var(--pre_theme_2)" data-tm="var(--theme_2)"></div>
+                        </li>
+                        <li>
+                            <div class="color" style="background: var(--pre_theme_3)" data-tm="var(--theme_3)"></div>
+                        </li>
+                        <li>
+                            <div class="color" style="background: var(--pre_theme_4)" data-tm="var(--theme_4)"></div>
+                        </li>
+                        <li>
+                            <div class="color" style="background: var(--pre_theme_5)" data-tm="var(--theme_5)"></div>
+                        </li>
+                        <li>
+                            <div class="color" style="background: var(--pre_theme_6)" data-tm="var(--theme_6)"></div>
+                        </li>
+                        <li>
+                            <div class="color" style="background: var(--facebook)" data-tm="var(--facebook)"></div>
+                        </li>
+                        <li>
+                            <div class="color" style="background: var(--pre_theme_9)" data-tm="var(--theme_9)"></div>
+                        </li>
+                        <li>
+                            <div class="color" style="background: var(--pre_theme_10)" data-tm="var(--theme_10)"></div>
+                        </li>
+                        <li>
+                            <div class="color" style="background: var(--pre_theme_11)" data-tm="var(--theme_11)"></div>
+                        </li>
+                        <li>
+                            <div class="color" style="background: var(--pre_theme_12)" data-tm="var(--theme_12)"></div>
+                        </li>
+                        <li>
+                            <div class="color" style="background: var(--pre_theme_13)" data-tm="var(--theme_13)"></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="flex_center">
+                <button class="nl" id="dark_toggle">Dark Mode</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        let config = {
+            sender: "User One",
+            reciver: "User Two",
+            folder: 'user_one_two',
+            sender_profile: 'profile/user1.jpg',
+            reciver_profile: 'profile/user2.jpg',
+        }
+    </script> 
+
+    <script src="user_one_two/db.js"></script>
+    <script src="assets/js/fuzzysort.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/chat.js"></script>
+</body>
+</html>
